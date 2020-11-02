@@ -19,25 +19,22 @@
             android:id="@+id/btn00"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn01"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn02"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,25 +48,22 @@
             android:id="@+id/btn10"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn11"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn12"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -84,25 +78,22 @@
             android:id="@+id/btn20"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn21"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn22"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Button" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <RelativeLayout
@@ -121,7 +112,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/p1TextViewString" />
+            android:text="Player turn" />
 
         <Button
             android:id="@+id/newGameBtn"
@@ -132,7 +123,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Button" />
+            android:text="@string/newGameBtnString" />
 
     </RelativeLayout>
 

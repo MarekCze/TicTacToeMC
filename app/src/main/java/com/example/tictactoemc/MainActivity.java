@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,14 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        playerTurnTextView = (TextView) findViewById(R.id.playerTurnTextView);
+        setPlayerTurnTextView((TextView) findViewById(R.id.playerTurnTextView));
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 String btnId = "btn" + i + j;
                 int resId = getResources().getIdentifier(btnId, "id", getPackageName());
-                buttonArray[i][j] = findViewById(resId);
-                buttonArray[i][j].setOnClickListener(this);
+                getButtonArray()[i][j] = findViewById(resId);
+                getButtonArray()[i][j].setOnClickListener(this);
             }
         }
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
             }
         });
     }
@@ -50,4 +49,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public Button[][] getButtonArray() {
+        return buttonArray;
+    }
+
+    public void setButtonArray(Button[][] buttonArray) {
+        this.buttonArray = buttonArray;
+    }
+
+    public boolean isP1Turn() {
+        return p1Turn;
+    }
+
+    public void setP1Turn(boolean p1Turn) {
+        this.p1Turn = p1Turn;
+    }
+
+    public int getP1Score() {
+        return p1Score;
+    }
+
+    public void setP1Score(int p1Score) {
+        this.p1Score = p1Score;
+    }
+
+    public int getP2Score() {
+        return p2Score;
+    }
+
+    public void setP2Score(int p2Score) {
+        this.p2Score = p2Score;
+    }
+
+    public String getP1Name() {
+        return p1Name;
+    }
+
+    public void setP1Name(String p1Name) {
+        this.p1Name = p1Name;
+    }
+
+    public String getP2Name() {
+        return p2Name;
+    }
+
+    public void setP2Name(String p2Name) {
+        this.p2Name = p2Name;
+    }
+
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public TextView getPlayerTurnTextView() {
+        return playerTurnTextView;
+    }
+
+    public void setPlayerTurnTextView(TextView playerTurnTextView) {
+        this.playerTurnTextView = playerTurnTextView;
+    }
 }
