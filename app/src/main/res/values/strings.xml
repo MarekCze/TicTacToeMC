@@ -3,4 +3,6 @@
     <string name="newGameBtnString">New Game</string>
     <string name="p1TextViewString">Player 1 score:</string>
     <string name="p2TextViewString">Player 2 score:</string>
+    <string name="settingsBtnString">Settings</string>
+    <string name="sendBtnString">Set Names</string>
 </resources>

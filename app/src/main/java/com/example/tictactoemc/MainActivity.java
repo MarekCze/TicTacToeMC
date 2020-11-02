@@ -1,14 +1,18 @@
 package com.example.tictactoemc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int SETTINGS_ACTIVITY_REQUEST_CODE = 0;
 
     private Button[][] buttonArray = new Button[3][3];
 
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView playerTurnTextView;
     private TextView p1TextView;
     private TextView p2TextView;
+    private Button settingsBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setPlayerTurnTextView((TextView) findViewById(R.id.playerTurnTextView));
         setP1TextView((TextView) findViewById(R.id.p1TextView));
         setP2TextView((TextView) findViewById(R.id.p2TextView));
+
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
@@ -47,6 +53,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 newGame();
             }
         });
+
+        setSettingsBtn((Button) findViewById(R.id.settingsBtn));
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings(v);
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("p1Score", this.getP1Score());
+        outState.putInt("p2Score", this.getP2Score());
+        outState.putString("p1Name", this.getP1Name());
+        outState.putString("p2Name", this.getP2Name());
+        outState.putInt("turnNumber", this.getTurnNumber());
+        outState.putBoolean("p1Turn", this.isP1Turn());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        this.setP1Score(savedInstanceState.getInt("p1Score"));
+        this.setP2Score(savedInstanceState.getInt("p2Score"));
+        this.setP1Name(savedInstanceState.getString("p1Name"));
+        this.setP2Name(savedInstanceState.getString("p2Name"));
+        this.setTurnNumber(savedInstanceState.getInt("turnNumber"));
+        this.setP1Turn(savedInstanceState.getBoolean("p1Turn"));
+    }
+
+    public void openSettings(View view) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivityForResult(intent, SETTINGS_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that it is the SecondActivity with an OK result
+        if (requestCode == SETTINGS_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                // Get String data from Intent
+                this.setP1Name(data.getStringExtra("p1Name"));
+                this.setP2Name(data.getStringExtra("p2Name"));
+                p1TextView.setText(this.getP1Name());
+                p2TextView.setText(this.getP2Name());
+
+            }
+        }
     }
 
     @Override
@@ -235,5 +296,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setP2TextView(TextView p2TextView) {
         this.p2TextView = p2TextView;
+    }
+
+    public Button getSettingsBtn() {
+        return settingsBtn;
+    }
+
+    public void setSettingsBtn(Button settingsBtn) {
+        this.settingsBtn = settingsBtn;
     }
 }
