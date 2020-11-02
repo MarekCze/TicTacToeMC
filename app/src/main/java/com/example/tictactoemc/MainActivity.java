@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,12 +20,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int turnNumber = 0;
 
     private TextView playerTurnTextView;
+    private TextView p1TextView;
+    private TextView p2TextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setPlayerTurnTextView((TextView) findViewById(R.id.playerTurnTextView));
+        setP1TextView((TextView) findViewById(R.id.p1TextView));
+        setP2TextView((TextView) findViewById(R.id.p2TextView));
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
@@ -39,14 +44,105 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
     }
 
     @Override
     public void onClick(View v) {
+        if(!((Button)v).getText().toString().equals("")){
+            return;
+        }
 
+        if(isP1Turn()){
+            ((Button)v).setText("X");
+        } else {
+            ((Button)v).setText("O");
+        }
+
+        if(hasWon()){
+            if(isP1Turn()){
+                p1Wins();
+            } else {
+                p2Wins();
+            }
+        } else if(turnNumber == 9){
+            draw();
+        }
+
+        nextTurn();
+    }
+
+    private void nextTurn(){
+        if(this.isP1Turn()){
+            this.setP1Turn(false);
+        } else {
+            this.setP1Turn(true);
+        }
+
+        this.setTurnNumber(this.getTurnNumber() + 1);
+    }
+
+    private void updateScoreboard(){
+        this.getP1TextView().setText(this.getP1Name() + " score: " + this.getP1Score());
+        this.getP2TextView().setText(this.getP2Name() + " score: " + this.getP2Score());
+    }
+
+    private boolean hasWon(){
+        String[][] field = new String[3][3];
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++) {
+                field[i][j] = getButtonArray()[i][j].getText().toString();
+            }
+        }
+
+        for(int i = 0; i < 3; i++){
+            if(field[i][0].equals(field[i][1]) && field[i][0].equals(field[i][2]) && !field[i][0].equals("")){
+                return true;
+            }
+        }
+
+        for(int i = 0; i < 3; i++){
+            if(field[0][i].equals(field[1][i]) && field[0][i].equals(field[2][i]) && !field[0][i].equals("")){
+                return true;
+            }
+        }
+
+        if(field[0][0].equals(field[1][1]) && field[0][0].equals(field[2][2]) && !field[0][0].equals("")){
+            return true;
+        }
+
+        if(field[2][0].equals(field[1][1]) && field[2][0].equals(field[0][2]) && !field[2][0].equals("")){
+            return true;
+        }
+
+        return false;
+    }
+
+    private void p1Wins(){
+        setP1Score(getP1Score() + 1);
+        Toast.makeText(this,this.getP1Name() + " wins!",Toast.LENGTH_SHORT).show();
+    }
+
+    private void p2Wins(){
+        setP2Score(getP2Score() + 1);
+        Toast.makeText(this,this.getP2Name() + " wins!",Toast.LENGTH_SHORT).show();
+    }
+
+    private void draw(){
+        Toast.makeText(this,"It's a draw!",Toast.LENGTH_SHORT).show();
+    }
+
+    private void newGame(){
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++) {
+                buttonArray[i][j].setText("");
+            }
+        }
+
+        this.setTurnNumber(0);
     }
 
     public Button[][] getButtonArray() {
@@ -111,5 +207,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setPlayerTurnTextView(TextView playerTurnTextView) {
         this.playerTurnTextView = playerTurnTextView;
+    }
+
+    public TextView getP1TextView() {
+        return p1TextView;
+    }
+
+    public void setP1TextView(TextView p1TextView) {
+        this.p1TextView = p1TextView;
+    }
+
+    public TextView getP2TextView() {
+        return p2TextView;
+    }
+
+    public void setP2TextView(TextView p2TextView) {
+        this.p2TextView = p2TextView;
     }
 }
