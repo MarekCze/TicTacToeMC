@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                newGame();
             }
         });
     }
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             ((Button)v).setText("O");
         }
+        this.setTurnNumber(this.getTurnNumber() + 1);
 
         if(hasWon()){
             if(isP1Turn()){
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 p2Wins();
             }
+            setGrid(false);
+            updateScoreboard();
         } else if(turnNumber == 9){
             draw();
         }
@@ -81,7 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.setP1Turn(true);
         }
 
-        this.setTurnNumber(this.getTurnNumber() + 1);
+
+    }
+
+    private void setGrid(boolean b){
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++) {
+                buttonArray[i][j].setEnabled(b);
+            }
+        }
     }
 
     private void updateScoreboard(){
@@ -141,8 +152,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonArray[i][j].setText("");
             }
         }
-
+        setGrid(true);
         this.setTurnNumber(0);
+        this.setP1Turn(true);
     }
 
     public Button[][] getButtonArray() {
