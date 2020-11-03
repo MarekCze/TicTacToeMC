@@ -5,4 +5,6 @@
     <string name="p2TextViewString">Player 2 score:</string>
     <string name="settingsBtnString">Settings</string>
     <string name="sendBtnString">Set Names</string>
+    <string name="p1InputString">Player 1</string>
+    <string name="p2InputString">Player 2</string>
 </resources>

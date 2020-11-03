@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setP1TextView((TextView) findViewById(R.id.p1TextView));
         setP2TextView((TextView) findViewById(R.id.p2TextView));
 
-
+        // populate button array and apply listeners to each button
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 String btnId = "btn" + i + j;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        // instantiate bottom buttons
         Button newGameBtn = findViewById(R.id.newGameBtn);
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // save data on pause
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putBoolean("p1Turn", this.isP1Turn());
     }
 
+    // get saved data on restore
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(intent, SETTINGS_ACTIVITY_REQUEST_CODE);
     }
 
+    // retrieve player names from settings activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,26 +108,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Get String data from Intent
                 this.setP1Name(data.getStringExtra("p1Name"));
                 this.setP2Name(data.getStringExtra("p2Name"));
-                p1TextView.setText(this.getP1Name());
-                p2TextView.setText(this.getP2Name());
-
+                Log.d("onActivityResult", "P1Name: " + data.getStringExtra("p1Name"));
+                p1TextView.setText(this.getP1Name() + " score:");
+                p2TextView.setText(this.getP2Name() + " score:");
+                this.setP1Score(0);
+                this.setP2Score(0);
             }
         }
     }
 
+    // handle grid button behaviour
     @Override
     public void onClick(View v) {
+        // if button was already clicked, do nothing
         if(!((Button)v).getText().toString().equals("")){
             return;
         }
-
+        // check turn and set button text
         if(isP1Turn()){
             ((Button)v).setText("X");
         } else {
             ((Button)v).setText("O");
         }
+        // increment turn
         this.setTurnNumber(this.getTurnNumber() + 1);
 
+        // check win condition and display appropriate message
         if(hasWon()){
             if(isP1Turn()){
                 p1Wins();
@@ -140,14 +151,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void nextTurn(){
         if(this.isP1Turn()){
+            playerTurnTextView.setText(this.getP1Name() + "'s turn");
             this.setP1Turn(false);
         } else {
+            playerTurnTextView.setText(this.getP2Name() + "'s turn");
             this.setP1Turn(true);
         }
 
 
     }
 
+    // disable/enable button grid
     private void setGrid(boolean b){
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++) {
@@ -156,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // update player score at end of round
     private void updateScoreboard(){
         this.getP1TextView().setText(this.getP1Name() + " score: " + this.getP1Score());
         this.getP2TextView().setText(this.getP2Name() + " score: " + this.getP2Score());
@@ -164,24 +179,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean hasWon(){
         String[][] field = new String[3][3];
 
+        // instantiate field array with button values
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++) {
                 field[i][j] = getButtonArray()[i][j].getText().toString();
             }
         }
-
+        // rows
         for(int i = 0; i < 3; i++){
             if(field[i][0].equals(field[i][1]) && field[i][0].equals(field[i][2]) && !field[i][0].equals("")){
                 return true;
             }
         }
-
+        // columns
         for(int i = 0; i < 3; i++){
             if(field[0][i].equals(field[1][i]) && field[0][i].equals(field[2][i]) && !field[0][i].equals("")){
                 return true;
             }
         }
 
+        // diagonals
         if(field[0][0].equals(field[1][1]) && field[0][0].equals(field[2][2]) && !field[0][0].equals("")){
             return true;
         }
@@ -193,20 +210,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    // increment p1 score and display win message
     private void p1Wins(){
         setP1Score(getP1Score() + 1);
         Toast.makeText(this,this.getP1Name() + " wins!",Toast.LENGTH_SHORT).show();
     }
 
+    // increment p2 score and display win message
     private void p2Wins(){
         setP2Score(getP2Score() + 1);
         Toast.makeText(this,this.getP2Name() + " wins!",Toast.LENGTH_SHORT).show();
     }
 
+    // display draw message
     private void draw(){
         Toast.makeText(this,"It's a draw!",Toast.LENGTH_SHORT).show();
     }
 
+    // clear grid buttons and set turn to 0
     private void newGame(){
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++) {

@@ -7,15 +7,15 @@
     tools:context=".Settings">
 
     <EditText
-        android:id="@+id/p1NameExitText"
+        android:id="@+id/p1NameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/p1InputString"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,10 +27,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/p2InputString"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p1NameExitText" />
+        app:layout_constraintTop_toBottomOf="@+id/p1NameEditText" />
 
     <Button
         android:id="@+id/sendBtn"
@@ -41,6 +41,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:onClick="onClick"
         android:text="@string/sendBtnString"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/p2NameEditText"

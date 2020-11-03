@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText p1NameTextView;
-    private EditText p2NameTextView;
+    private EditText p1NameEditText;
+    private EditText p2NameEditText;
     private Button sendBtn;
 
     @Override
@@ -20,8 +20,8 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setP1NameTextView((EditText) findViewById(R.id.p1NameExitText));
-        setP2NameTextView((EditText) findViewById(R.id.p2NameEditText));
+        setP1NameEditText((EditText) findViewById(R.id.p1NameEditText));
+        setP2NameEditText((EditText) findViewById(R.id.p2NameEditText));
         setSendBtn((Button) findViewById(R.id.sendBtn));
 
         sendBtn.setOnClickListener(this);
@@ -30,26 +30,26 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        intent.putExtra("p1Name", p1NameTextView.getText());
-        intent.putExtra("p2Name", p2NameTextView.getText());
+        intent.putExtra("p1Name", p1NameEditText.getText().toString());
+        intent.putExtra("p2Name", p2NameEditText.getText().toString());
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    public EditText getP1NameTextView() {
-        return p1NameTextView;
+    public EditText getP1NameEditText() {
+        return p1NameEditText;
     }
 
-    public void setP1NameTextView(EditText p1NameTextView) {
-        this.p1NameTextView = p1NameTextView;
+    public void setP1NameEditText(EditText p1NameEditText) {
+        this.p1NameEditText = p1NameEditText;
     }
 
-    public EditText getP2NameTextView() {
-        return p2NameTextView;
+    public EditText getP2NameEditText() {
+        return p2NameEditText;
     }
 
-    public void setP2NameTextView(EditText p2NameTextView) {
-        this.p2NameTextView = p2NameTextView;
+    public void setP2NameEditText(EditText p2NameEditText) {
+        this.p2NameEditText = p2NameEditText;
     }
 
     public Button getSendBtn() {
