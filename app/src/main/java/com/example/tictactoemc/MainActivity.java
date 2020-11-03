@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,13 +59,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        setSettingsBtn((Button) findViewById(R.id.settingsBtn));
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettings(v);
-            }
-        });
+    }
+
+    // create menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    // onClick menu item
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.settingsMenuItem:
+                openSettings(settingsBtn);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // save data on pause

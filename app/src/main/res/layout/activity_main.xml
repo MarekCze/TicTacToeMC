@@ -170,17 +170,6 @@
             android:layout_marginBottom="8dp"
             android:text="@string/newGameBtnString" />
 
-        <Button
-            android:id="@+id/settingsBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/newGameBtn"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/settingsBtnString" />
-
     </RelativeLayout>
 
 </LinearLayout>
